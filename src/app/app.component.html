@@ -1,2 +1,5 @@
-<h1>first App</h1>
-<app-post-crete></app-post-crete>
+<app-header></app-header>
+<main>
+  <app-post-crete (postCreated)='onPostAdded($event)'></app-post-crete>
+  <app-post-list [posts]='storedPosts'></app-post-list>
+</main>
