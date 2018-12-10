@@ -1,4 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { PostService } from '../post.service';
+
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-post-crete',
@@ -9,13 +13,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class PostCreateComponent {
   enteredTitle = '';
   enteredContent = '';
-  @Output() postCreated = new EventEmitter();
 
-  onAddPost() {
-    const post = {
-      title: this.enteredTitle,
-      content: this.enteredContent,
-    };
-    this.postCreated.emit(post);
+  constructor(public postService: PostService) {}
+
+  onAddPost(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.postService.addPost(form.value.title, form.value.content);
+    form.resetForm();
   }
 }
