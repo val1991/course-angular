@@ -4,10 +4,14 @@ const mongoose = require('mongoose');
 const path = require("path");
 
 const postRoutes = require('./routes/posts');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://joey:15Goh66XqDdr9pE4@cluster0-qgyoy.mongodb.net/node-angular?retryWrites=true')
+mongoose.connect(
+  'mongodb+srv://joey:15Goh66XqDdr9pE4@cluster0-qgyoy.mongodb.net/node-angular?retryWrites=true',
+  { useNewUrlParser: true },
+  )
 .then(() => {
   console.log('Connected to database!');
 })
@@ -33,5 +37,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/posts', postRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
