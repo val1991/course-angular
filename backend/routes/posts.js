@@ -41,12 +41,17 @@ router.post(
   });
   post.save().then(createdPost => {
     res.status(201).json({
-      message: 'post added successfuly',
+      message: 'Post added successfuly',
       post: {
         ...createdPost,
         id: createdPost._id,
       }
     })
+  })
+  .catch(err => {
+    res.status(500).json({
+      message: 'Creating a post failed!',
+    });
   });
 });
 
@@ -73,6 +78,11 @@ router.put(
     } else {
       res.status(401).json({ message: 'Not authorized' });
     }
+  })
+  .catch(err => {
+    res.status(500).json({
+      message: 'Could not update post!'
+    })
   });
 });
 
@@ -88,7 +98,7 @@ router.get('', (req, res, next) => {
   }
   postQuery.then(documents => {
     fetchedPosts = documents;
-    return Post.estimatedDocumentCount();
+    return Post.count();
   })
   .then(count => {
     res.status(200).json({
@@ -96,8 +106,12 @@ router.get('', (req, res, next) => {
       posts: fetchedPosts,
       maxPosts: count
     });
+  })
+  .catch(err => {
+    res.status(500).json({
+      message: 'Fetching posts failed!'
+    });
   });
-
 });
 
 router.get("/:id", (req, res, next) => {
@@ -107,7 +121,11 @@ router.get("/:id", (req, res, next) => {
     } else {
       res.status(404).json({ message: 'Post not found!' });
     }
-  })
+  }).catch(err => {
+    res.status(500).json({
+      message: 'Fetching post failed!'
+    });
+  });
 });
 
 router.delete(
@@ -123,7 +141,9 @@ router.delete(
     }
   })
   .catch(err => {
-    console.log(err);
+    res.status(500).json({
+      message: 'Deleting post failed!'
+    });
   });
 });
 
