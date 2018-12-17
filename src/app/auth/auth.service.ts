@@ -40,10 +40,13 @@ export class AuthService {
       email,
       password,
     };
+    console.log('authData', authData);
     return this.http.post(`${BACKEND_URL}signup`, authData)
     .subscribe(response => {
-      this.router.navigate(['/login']);
+      console.log('responce', response);
+      this.router.navigate(['/auth/login']);
     }, error => {
+      console.log('error', error);
       this.authStatusListener.next(false);
     });
   }

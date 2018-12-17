@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 mongoose.connect(
-  'mongodb+srv://joey:' + process.env.MONGO_ATLAS_PW +'@cluster0-qgyoy.mongodb.net/node-angular?retryWrites=true',
+  'mongodb+srv://joye:BWavoLUob8df6LWC@cluster0-qgyoy.mongodb.net/test?retryWrites=true',
   { useNewUrlParser: true },
   )
 .then(() => {

@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 const User = require('../models/user');
@@ -12,6 +12,7 @@ exports.createUser = (req, res, next) => {
       });
       user.save()
         .then(result => {
+          console.log(result)
           res.status(201).json({
             message: 'User created!',
             result: result,
